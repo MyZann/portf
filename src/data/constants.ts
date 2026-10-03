@@ -293,7 +293,6 @@ export const EXPERIENCE: Experience[] = [
     SkillNames.REACT,
     SkillNames.NODEJS,
     SkillNames.POSTGRES,
-    SkillNames.SUPABASE,
     SkillNames.VERCEL,
   ],
 },
