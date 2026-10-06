@@ -3,6 +3,7 @@ import { config } from "@/data/config";
 import { Resend } from "resend";
 import { z } from "zod";
 
+// Gunakan variabel lingkungan secara langsung tanpa fallback string API key rahasia
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const rateLimit = new Map<string, { count: number; resetAt: number }>();
@@ -25,11 +26,15 @@ const Email = z.object({
   email: z.string().email({ message: "Email is invalid!" }),
   message: z.string().min(10, "Message is too short!"),
 });
+
 export async function POST(req: Request) {
   try {
     const ip = req.headers.get("x-forwarded-for") ?? "unknown";
     if (isRateLimited(ip)) {
-      return Response.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+      return Response.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
     }
 
     const body = await req.json();
@@ -38,11 +43,13 @@ export async function POST(req: Request) {
       data: zodData,
       error: zodError,
     } = Email.safeParse(body);
-    if (!zodSuccess)
+
+    if (!zodSuccess) {
       return Response.json({ error: zodError?.message }, { status: 400 });
+    }
 
     const { data: resendData, error: resendError } = await resend.emails.send({
-      from: "Porfolio <onboarding@resend.dev>",
+      from: "Portfolio <onboarding@resend.dev>",
       to: [config.email],
       subject: "Contact me from portfolio",
       react: EmailTemplate({
