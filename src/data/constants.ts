@@ -1,4 +1,3 @@
-// thoda zada ts ho gya idhar
 export enum SkillNames {
   JS = "js",
   TS = "ts",
@@ -25,7 +24,9 @@ export enum SkillNames {
   GCP = "gcp",
   VIM = "vim",
   VERCEL = "vercel",
+  SUPABASE = "supabase",
 }
+
 export type Skill = {
   id: number;
   name: string;
@@ -34,6 +35,7 @@ export type Skill = {
   color: string;
   icon: string;
 };
+
 export const SKILLS: Record<SkillNames, Skill> = {
   [SkillNames.JS]: {
     id: 1,
@@ -72,8 +74,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     id: 5,
     name: "react",
     label: "React",
-    shortDescription: `"use using" 
-using use = useUsing("use")`,
+    shortDescription: `"use using" \nusing use = useUsing("use")`,
     color: "#61dafb",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   },
@@ -243,6 +244,14 @@ using use = useUsing("use")`,
     color: "#6cc24a",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
   },
+  [SkillNames.SUPABASE]: {
+    id: 26,
+    name: "supabase",
+    label: "Supabase",
+    shortDescription: "Firebase alternative without the stress fr fr ⚡⚡",
+    color: "#3ecf8e",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+  },
 };
 
 export type Experience = {
@@ -256,46 +265,47 @@ export type Experience = {
 };
 
 export const EXPERIENCE: Experience[] = [
-{
-  id: 1,
-  startDate: "Jun 2026",
-  endDate: "Present",
-  title: "Backend & Bot Developer",
-  company: "Arceus HUB",
-  description: [
-    "Engineered a feature-rich Node.js Discord bot handling automated server moderation, role assignments, and user support tickets.",
-    "Integrated secure GitHub repository webhooks to automate code update notifications and version tracking.",
-    "Built robust asynchronous event handlers ensuring high uptime and lightning-fast response times for community members.",
-    "Streamlined community support workflows by implementing custom interactive ticketing and user ID verification systems."
-  ],
-  skills: [
-    SkillNames.NODEJS,
-    SkillNames.TS,
-    SkillNames.GITHUB,
-    SkillNames.DOCKER,
-  ],
-},
-{
-  id: 2,
-  startDate: "Oct 2024",
-  endDate: "Sept 2024",
-  title: "Full Stack Developer",
-  company: "E-Vote MPK SMANTI",
-  description: [
-    "Architected and built a high-concurrency digital voting web app for student council elections from scratch.",
-    "Engineered secure token-based voter authentication to eliminate ballot tampering and duplicate votes.",
-    "Developed real-time vote tallying dashboards for live monitoring by election committees and faculty.",
-    "Optimized platform performance to flawlessly handle massive concurrent traffic spikes from the entire student body."
-  ],
-  skills: [
-    SkillNames.NEXTJS,
-    SkillNames.TS,
-    SkillNames.REACT,
-    SkillNames.NODEJS,
-    SkillNames.POSTGRES,
-    SkillNames.VERCEL,
-  ],
-},
+  {
+    id: 1,
+    startDate: "Jun 2026",
+    endDate: "Present",
+    title: "Backend & Bot Developer",
+    company: "Arceus HUB",
+    description: [
+      "Engineered a feature-rich Node.js Discord bot handling automated server moderation, role assignments, and user support tickets.",
+      "Integrated secure GitHub repository webhooks to automate code update notifications and version tracking.",
+      "Built robust asynchronous event handlers ensuring high uptime and lightning-fast response times for community members.",
+      "Streamlined community support workflows by implementing custom interactive ticketing and user ID verification systems.",
+    ],
+    skills: [
+      SkillNames.NODEJS,
+      SkillNames.TS,
+      SkillNames.GITHUB,
+      SkillNames.DOCKER,
+    ],
+  },
+  {
+    id: 2,
+    startDate: "Oct 2024",
+    endDate: "Sept 2024",
+    title: "Full Stack Developer",
+    company: "E-Vote MPK SMANTI",
+    description: [
+      "Architected and built a high-concurrency digital voting web app for student council elections from scratch.",
+      "Engineered secure token-based voter authentication to eliminate ballot tampering and duplicate votes.",
+      "Developed real-time vote tallying dashboards for live monitoring by election committees and faculty.",
+      "Optimized platform performance to flawlessly handle massive concurrent traffic spikes from the entire student body.",
+    ],
+    skills: [
+      SkillNames.NEXTJS,
+      SkillNames.TS,
+      SkillNames.REACT,
+      SkillNames.NODEJS,
+      SkillNames.POSTGRES,
+      SkillNames.SUPABASE,
+      SkillNames.VERCEL,
+    ],
+  },
 ];
 
 export const themeDisclaimers = {
@@ -314,4 +324,3 @@ export const themeDisclaimers = {
     "Dark mode on! Finally, someone who understands true sophistication.",
   ],
 };
-
