@@ -24,7 +24,6 @@ export enum SkillNames {
   GCP = "gcp",
   VIM = "vim",
   VERCEL = "vercel",
-  SUPABASE = "supabase",
 }
 
 export type Skill = {
@@ -244,14 +243,6 @@ export const SKILLS: Record<SkillNames, Skill> = {
     color: "#6cc24a",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
   },
-  [SkillNames.SUPABASE]: {
-    id: 26,
-    name: "supabase",
-    label: "Supabase",
-    shortDescription: "Firebase alternative without the stress fr fr ⚡⚡",
-    color: "#3ecf8e",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
-  },
 };
 
 export type Experience = {
@@ -302,7 +293,6 @@ export const EXPERIENCE: Experience[] = [
       SkillNames.REACT,
       SkillNames.NODEJS,
       SkillNames.POSTGRES,
-      SkillNames.SUPABASE,
       SkillNames.VERCEL,
     ],
   },
