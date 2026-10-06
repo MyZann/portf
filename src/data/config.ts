@@ -30,7 +30,7 @@ const config = {
   ],
   author: "Hirzan Al Hafiz",
   email: "jaydenvanjoe@gmail.com",
-  site: "https://hirzan.me/",
+  site: "https://hirzan.my.id/",
 
   // for github stars button
   githubUsername: "JaydenVanjoe",
