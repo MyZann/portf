@@ -8,6 +8,7 @@ import SiteFrame from "@/components/site-frame";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { UMAMI_SRC } from "@/lib/umami";
+import { Analytics } from "@vercel/analytics/next";
 
 const spaceGroteskSans = Space_Grotesk({
   subsets: ["latin"],
@@ -89,6 +90,8 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
+
+        <Analytics />
       </body>
     </html>
   );
