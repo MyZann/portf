@@ -26,10 +26,9 @@ const Email = z.object({
 
 export async function POST(req: Request) {
   try {
-    // Validasi apakah API key sudah dikonfigurasi di Vercel
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
-      console.error("RESEND_API_KEY is missing from environment variables.");
+      console.error("ERR: RESEND_API_KEY is missing!");
       return Response.json(
         { error: "Server configuration error: Missing API Key" },
         { status: 500 }
@@ -57,25 +56,30 @@ export async function POST(req: Request) {
       return Response.json({ error: zodError?.message }, { status: 400 });
     }
 
+    // Gunakan elemen JSX langsung <EmailTemplate ... />, bukan memanggilnya sebagai fungsi
     const { data: resendData, error: resendError } = await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: [config.email],
-      subject: "Contact me from portfolio",
+      subject: `Portfolio Contact from ${zodData.fullName}`,
       react: EmailTemplate({
         fullName: zodData.fullName,
         email: zodData.email,
         message: zodData.message,
-      }) as React.ReactElement,
+      }),
     });
 
     if (resendError) {
       console.error("Resend API Error:", resendError);
-      return Response.json({ error: "Failed to send email" }, { status: 500 });
+      return Response.json({ error: resendError.message }, { status: 500 });
     }
 
     return Response.json(resendData);
-  } catch (error) {
-    console.error("Internal Server Error:", error);
-    return Response.json({ error: (error as Error).message }, { status: 500 });
+  } catch (error: any) {
+    // Cetak detail error ke Vercel Logs agar mudah dibaca jika masih ada kendala
+    console.error("API Route Error Detail:", error?.message || error);
+    return Response.json(
+      { error: error?.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
