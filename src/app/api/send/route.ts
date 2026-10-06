@@ -3,9 +3,6 @@ import { config } from "@/data/config";
 import { Resend } from "resend";
 import { z } from "zod";
 
-// Gunakan variabel lingkungan secara langsung tanpa fallback string API key rahasia
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const rateLimit = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
@@ -29,6 +26,9 @@ const Email = z.object({
 
 export async function POST(req: Request) {
   try {
+    // Dipindahkan ke dalam handler POST agar tidak dievaluasi saat build time
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const ip = req.headers.get("x-forwarded-for") ?? "unknown";
     if (isRateLimited(ip)) {
       return Response.json(
