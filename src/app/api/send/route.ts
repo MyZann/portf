@@ -26,8 +26,17 @@ const Email = z.object({
 
 export async function POST(req: Request) {
   try {
-    // Dipindahkan ke dalam handler POST agar tidak dievaluasi saat build time
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    // Validasi apakah API key sudah dikonfigurasi di Vercel
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error("RESEND_API_KEY is missing from environment variables.");
+      return Response.json(
+        { error: "Server configuration error: Missing API Key" },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
 
     const ip = req.headers.get("x-forwarded-for") ?? "unknown";
     if (isRateLimited(ip)) {
@@ -60,11 +69,13 @@ export async function POST(req: Request) {
     });
 
     if (resendError) {
+      console.error("Resend API Error:", resendError);
       return Response.json({ error: "Failed to send email" }, { status: 500 });
     }
 
     return Response.json(resendData);
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    console.error("Internal Server Error:", error);
+    return Response.json({ error: (error as Error).message }, { status: 500 });
   }
 }
