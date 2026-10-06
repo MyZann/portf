@@ -258,7 +258,7 @@ const projects: Project[] = [
           <TypographyH3 className="my-4 mt-8">Full-Stack Engineer — E-Vote MPK SMANTI</TypographyH3>
           <p className="font-mono mb-2">
             <em>Architected and developed end-to-end as a sole engineer:</em> 
-            a high-concurrency digital voting web application for SMA Negeri 3 Cilacap's student council election (Pilkasis).
+            a high-concurrency digital voting web application for SMA Negeri 3 Cilacap&apos;s student council election (Pilkasis).
             Engineered a robust ballot submission pipeline, secure student authentication,
             and dynamic real-time vote tallying dashboards. Built to ensure zero ballot tampering,
             lightning-fast client-side transitions, and seamless high-traffic performance during school-wide peak voting hours.
