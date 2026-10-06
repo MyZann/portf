@@ -56,16 +56,18 @@ export async function POST(req: Request) {
       return Response.json({ error: zodError?.message }, { status: 400 });
     }
 
-    // Gunakan elemen JSX langsung <EmailTemplate ... />, bukan memanggilnya sebagai fungsi
+    // Gunakan await jika EmailTemplate mengembalikan Promise / Async Component
+    const emailContent = await EmailTemplate({
+      fullName: zodData.fullName,
+      email: zodData.email,
+      message: zodData.message,
+    });
+
     const { data: resendData, error: resendError } = await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: [config.email],
       subject: `Portfolio Contact from ${zodData.fullName}`,
-      react: EmailTemplate({
-        fullName: zodData.fullName,
-        email: zodData.email,
-        message: zodData.message,
-      }),
+      react: emailContent as React.ReactElement,
     });
 
     if (resendError) {
@@ -75,7 +77,6 @@ export async function POST(req: Request) {
 
     return Response.json(resendData);
   } catch (error: any) {
-    // Cetak detail error ke Vercel Logs agar mudah dibaca jika masih ada kendala
     console.error("API Route Error Detail:", error?.message || error);
     return Response.json(
       { error: error?.message || "Internal Server Error" },
