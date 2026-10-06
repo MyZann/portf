@@ -9,7 +9,6 @@ import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { UMAMI_SRC } from "@/lib/umami";
 
-/* 👇 Pastikan deklarasi ini ada di atas */
 const spaceGroteskSans = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -23,7 +22,37 @@ const unbounded = Unbounded({
 });
 
 export const metadata: Metadata = {
-  // ... metadata Anda ...
+  title: {
+    default: config.title,
+    template: `%s | ${config.author}`,
+  },
+  description: config.description.long,
+  keywords: config.keywords,
+  authors: [{ name: config.author }],
+  creator: config.author,
+  metadataBase: new URL(config.site),
+  openGraph: {
+    title: config.title,
+    description: config.description.short,
+    url: config.site,
+    siteName: config.title,
+    images: [
+      {
+        url: config.ogImg,
+        width: 1200,
+        height: 630,
+        alt: config.title,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: config.title,
+    description: config.description.short,
+    images: [config.ogImg],
+  },
 };
 
 export default function RootLayout({
